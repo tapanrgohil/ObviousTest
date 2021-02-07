@@ -20,7 +20,7 @@ class GridAdapter(
     class GridViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(imageModel: ImageModel, itemClicked: (Int, ImageModel,View) -> Unit) {
             itemView.apply {
-                ViewCompat.setTransitionName(image, imageModel.title)
+                ViewCompat.setTransitionName(image, adapterPosition.toString())
 
                 image.load(imageModel.image)
 

@@ -49,6 +49,13 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
             })
         }
 
+        arguments?.apply {
+            DetailsFragmentArgs.fromBundle(this).position.let {
+                ViewCompat.setTransitionName(root, it.toString())
+            }
+
+
+        }
         attachLiveData()
     }
 
@@ -74,7 +81,7 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         arguments?.apply {
             DetailsFragmentArgs.fromBundle(this).position.let {
                 pagger2.setCurrentItem(it, false)
-                ViewCompat.setTransitionName(root, imageModels[it].title)
+                ViewCompat.setTransitionName(root, it.toString())
             }
 
 

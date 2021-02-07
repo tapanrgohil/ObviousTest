@@ -26,15 +26,19 @@ class GridFragment : Fragment(R.layout.grid_fragment) {
     private val viewModel by viewModels<GridViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
-    private val gridAdapter = GridAdapter(arrayListOf()) { position, model, view ->
+    private val gridAdapter = GridAdapter(arrayListOf()) { position, _, view ->
+        navigateToDetails(view, position)
+    }
+
+    private fun navigateToDetails(view: View, position: Int) {
         val extras = FragmentNavigatorExtras(
-            view to model.title
+            view to position.toString()
         )
         this@GridFragment.findNavController()
             .navigate(
                 GridFragmentDirections.actionGridFragmentToDetailsFragment(
                     position
-                ),extras
+                ), extras
             )
     }
 
