@@ -6,6 +6,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.afollestad.materialdialogs.LayoutMode
@@ -25,12 +26,15 @@ class GridFragment : Fragment(R.layout.grid_fragment) {
     private val viewModel by viewModels<GridViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
-    private val gridAdapter = GridAdapter(arrayListOf()) { position, _ ->
+    private val gridAdapter = GridAdapter(arrayListOf()) { position, model, view ->
+        val extras = FragmentNavigatorExtras(
+            view to model.title
+        )
         this@GridFragment.findNavController()
             .navigate(
                 GridFragmentDirections.actionGridFragmentToDetailsFragment(
                     position
-                )
+                ),extras
             )
     }
 

@@ -1,12 +1,15 @@
 package com.tapan.obvioustest.ui.detail
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.View
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.tapan.obvioustest.R
+import com.tapan.obvioustest.data.image.model.ImageNetworkModel
 import com.tapan.obvioustest.ui.MainViewModel
 import com.tapan.obvioustest.ui.detail.adapter.DetailAdapter
 import com.tapan.obvioustest.ui.grid.model.ImageModel
@@ -22,6 +25,12 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
     private val mainViewModel: MainViewModel by activityViewModels<MainViewModel>()
 
     private val detailAdapter = DetailAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(android.R.transition.move)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,18 +63,21 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 }
             }.apply {
                 detailAdapter.updateDataSet(this)
-                goToSelectedImage()
+                goToSelectedImage(it)
             }
         }
 
 
     }
 
-    private fun goToSelectedImage() {
+    private fun goToSelectedImage(imageModels: List<ImageNetworkModel>) {
         arguments?.apply {
             DetailsFragmentArgs.fromBundle(this).position.let {
                 pagger2.setCurrentItem(it, false)
+                ViewCompat.setTransitionName(root, imageModels[it].title)
             }
+
+
         }
     }
 

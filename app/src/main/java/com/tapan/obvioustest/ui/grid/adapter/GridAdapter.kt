@@ -3,6 +3,7 @@ package com.tapan.obvioustest.ui.grid.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.tapan.obvioustest.R
 import com.tapan.obvioustest.ui.grid.model.ImageModel
@@ -11,17 +12,20 @@ import kotlinx.android.synthetic.main.item_grid.view.*
 
 class GridAdapter(
     private val list: ArrayList<ImageModel> = arrayListOf(),
-    private val itemClicked: (Int, ImageModel) -> Unit
+    private val itemClicked: (Int, ImageModel,View) -> Unit
 ) :
     RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
 
 
     class GridViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(imageModel: ImageModel, itemClicked: (Int, ImageModel) -> Unit) {
+        fun bind(imageModel: ImageModel, itemClicked: (Int, ImageModel,View) -> Unit) {
             itemView.apply {
+                ViewCompat.setTransitionName(image, imageModel.title)
+
                 image.load(imageModel.image)
+
                 setOnClickListener {
-                    itemClicked.invoke(adapterPosition, imageModel)
+                    itemClicked.invoke(adapterPosition, imageModel,image)
                 }
             }
         }
