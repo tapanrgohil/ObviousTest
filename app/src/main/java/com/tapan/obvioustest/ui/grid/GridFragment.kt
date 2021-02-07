@@ -1,22 +1,16 @@
 package com.tapan.obvioustest.ui.grid
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.UiThread
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
-import com.jakewharton.threetenabp.AndroidThreeTen.init
 import com.tapan.obvioustest.R
-import com.tapan.obvioustest.data.core.Resource
 import com.tapan.obvioustest.ui.grid.adapter.GridAdapter
 import com.tapan.obvioustest.ui.grid.model.ImageModel
 import com.tapan.obvioustest.util.handleResponse
@@ -28,7 +22,14 @@ class GridFragment : Fragment(R.layout.grid_fragment) {
 
     private val viewModel by viewModels<GridViewModel>()
 
-    private val gridAdapter = GridAdapter(arrayListOf())
+    private val gridAdapter = GridAdapter(arrayListOf()) { position, _ ->
+        this@GridFragment.findNavController()
+            .navigate(
+                GridFragmentDirections.actionGridFragmentToDetailsFragment(
+                    position
+                )
+            )
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

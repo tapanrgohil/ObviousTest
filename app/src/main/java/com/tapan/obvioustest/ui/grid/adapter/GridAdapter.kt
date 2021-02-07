@@ -9,16 +9,22 @@ import com.tapan.obvioustest.R
 import com.tapan.obvioustest.ui.grid.model.ImageModel
 import kotlinx.android.synthetic.main.item_grid.view.*
 
-class GridAdapter(private val list: ArrayList<ImageModel> = arrayListOf()) :
+class GridAdapter(
+    private val list: ArrayList<ImageModel> = arrayListOf(),
+    private val itemClicked: (Int,ImageModel) -> Unit
+) :
     RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
 
 
     class GridViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(imageModel: ImageModel) {
+        fun bind(imageModel: ImageModel, itemClicked: (Int,ImageModel) -> Unit) {
             itemView.apply {
                 image.load(imageModel.image) {
                     error(android.R.drawable.ic_menu_close_clear_cancel)
 
+                }
+                setOnClickListener {
+                    itemClicked.invoke(adapterPosition,imageModel)
                 }
             }
         }
@@ -31,7 +37,7 @@ class GridAdapter(private val list: ArrayList<ImageModel> = arrayListOf()) :
     }
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], itemClicked)
     }
 
     override fun getItemCount(): Int {
