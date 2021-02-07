@@ -8,11 +8,9 @@ import coil.load
 import com.tapan.obvioustest.R
 import com.tapan.obvioustest.ui.grid.model.ImageModel
 import kotlinx.android.synthetic.main.item_detail.view.*
-import kotlinx.android.synthetic.main.item_grid.view.image
 
 class DetailAdapter(private val list: ArrayList<ImageModel> = arrayListOf()) :
     RecyclerView.Adapter<DetailAdapter.DetailsViewHolder>() {
-
 
     class DetailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(imageModel: ImageModel) {
@@ -30,7 +28,7 @@ class DetailAdapter(private val list: ArrayList<ImageModel> = arrayListOf()) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailsViewHolder {
         return with(LayoutInflater.from(parent.context)) {
-            DetailsViewHolder(inflate(R.layout.item_grid, parent, false))
+            DetailsViewHolder(inflate(R.layout.item_detail, parent, false))
         }
     }
 
