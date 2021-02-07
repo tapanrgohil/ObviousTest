@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,6 +12,7 @@ import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.tapan.obvioustest.R
+import com.tapan.obvioustest.ui.MainViewModel
 import com.tapan.obvioustest.ui.grid.adapter.GridAdapter
 import com.tapan.obvioustest.ui.grid.model.ImageModel
 import com.tapan.obvioustest.util.handleResponse
@@ -21,6 +23,7 @@ import kotlinx.android.synthetic.main.grid_fragment.*
 class GridFragment : Fragment(R.layout.grid_fragment) {
 
     private val viewModel by viewModels<GridViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     private val gridAdapter = GridAdapter(arrayListOf()) { position, _ ->
         this@GridFragment.findNavController()
@@ -88,5 +91,12 @@ class GridFragment : Fragment(R.layout.grid_fragment) {
         }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        if (gridAdapter.itemCount >= mainViewModel.currentPosition) {
+
+        }
+    }
 
 }

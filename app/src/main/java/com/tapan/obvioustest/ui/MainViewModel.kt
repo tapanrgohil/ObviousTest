@@ -5,5 +5,5 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel @ViewModelInject constructor() :ViewModel(){
 
-    private var currentPosition = -1
+    var currentPosition = -1
 }

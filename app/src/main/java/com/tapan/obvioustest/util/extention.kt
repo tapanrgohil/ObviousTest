@@ -1,11 +1,15 @@
 package com.tapan.obvioustest.util
 
 import android.view.View
+import android.widget.ImageView
 import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.tapan.obvioustest.R
 import com.tapan.obvioustest.data.core.Resource
 import com.tapan.obvioustest.data.core.Status
@@ -73,4 +77,29 @@ fun <R> Fragment.handleResponse(
             }
         }
     }
+}
+
+fun ImageView.load(url: String, thumb: String) {
+    val requestOption = RequestOptions()
+        .error(android.R.drawable.progress_horizontal).centerCrop()
+    Glide.with(this)
+        .load(url)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .thumbnail(
+            Glide.with(this)
+                .load(thumb)
+                .apply(requestOption)
+        )
+        .apply(requestOption)
+        .into(this)
+}
+
+fun ImageView.load(url: String) {
+    val requestOption = RequestOptions()
+        .placeholder(android.R.drawable.ic_notification_clear_all).centerCrop()
+    Glide.with(this)
+        .load(url)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .apply(requestOption)
+        .into(this)
 }

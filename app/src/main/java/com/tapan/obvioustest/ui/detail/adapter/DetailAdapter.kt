@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.tapan.obvioustest.R
 import com.tapan.obvioustest.ui.grid.model.ImageModel
+import com.tapan.obvioustest.util.load
 import kotlinx.android.synthetic.main.item_detail.view.*
 
 class DetailAdapter(private val list: ArrayList<ImageModel> = arrayListOf()) :
@@ -15,9 +15,7 @@ class DetailAdapter(private val list: ArrayList<ImageModel> = arrayListOf()) :
     class DetailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(imageModel: ImageModel) {
             itemView.apply {
-                image.load(imageModel.hdImage) {
-                    error(android.R.drawable.ic_menu_close_clear_cancel)
-                }
+                image.load(imageModel.hdImage, imageModel.image)
                 tvTitle.text = imageModel.title
                 tvDescription.text = imageModel.description
                 tvDate.text = imageModel.date

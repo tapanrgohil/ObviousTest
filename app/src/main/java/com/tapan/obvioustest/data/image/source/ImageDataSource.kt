@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 //This can be local and remote sources
 interface ImageDataSource {
 
-    fun getImages(): Flow<Resource<List<ImageNetworkModel>>>
+    fun getImages(fromCache:Boolean): Flow<Resource<List<ImageNetworkModel>>>
 }

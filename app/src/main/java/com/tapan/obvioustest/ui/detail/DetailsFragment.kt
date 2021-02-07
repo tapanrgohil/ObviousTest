@@ -3,9 +3,11 @@ package com.tapan.obvioustest.ui.detail
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.tapan.obvioustest.R
+import com.tapan.obvioustest.ui.MainViewModel
 import com.tapan.obvioustest.ui.detail.adapter.DetailAdapter
 import com.tapan.obvioustest.ui.grid.model.ImageModel
 import com.tapan.obvioustest.util.handleResponse
@@ -17,6 +19,8 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
 
 
     private val viewModel: DetailsViewModel by viewModels<DetailsViewModel>()
+    private val mainViewModel: MainViewModel by activityViewModels<MainViewModel>()
+
     private val detailAdapter = DetailAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,6 +32,12 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
         pagger2.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             adapter = detailAdapter
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    mainViewModel.currentPosition = position
+                }
+            })
         }
 
         attachLiveData()
@@ -44,9 +54,14 @@ class DetailsFragment : Fragment(R.layout.details_fragment) {
                 }
             }.apply {
                 detailAdapter.updateDataSet(this)
+                goToSelectedImage()
             }
         }
 
+
+    }
+
+    private fun goToSelectedImage() {
         arguments?.apply {
             DetailsFragmentArgs.fromBundle(this).position.let {
                 pagger2.setCurrentItem(it, false)

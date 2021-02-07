@@ -4,27 +4,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.tapan.obvioustest.R
 import com.tapan.obvioustest.ui.grid.model.ImageModel
+import com.tapan.obvioustest.util.load
 import kotlinx.android.synthetic.main.item_grid.view.*
 
 class GridAdapter(
     private val list: ArrayList<ImageModel> = arrayListOf(),
-    private val itemClicked: (Int,ImageModel) -> Unit
+    private val itemClicked: (Int, ImageModel) -> Unit
 ) :
     RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
 
 
     class GridViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(imageModel: ImageModel, itemClicked: (Int,ImageModel) -> Unit) {
+        fun bind(imageModel: ImageModel, itemClicked: (Int, ImageModel) -> Unit) {
             itemView.apply {
-                image.load(imageModel.image) {
-                    error(android.R.drawable.ic_menu_close_clear_cancel)
-
-                }
+                image.load(imageModel.image)
                 setOnClickListener {
-                    itemClicked.invoke(adapterPosition,imageModel)
+                    itemClicked.invoke(adapterPosition, imageModel)
                 }
             }
         }

@@ -12,7 +12,7 @@ class DetailsViewModel @ViewModelInject
 constructor(private val imageRepo: ImageRepo) : ViewModel() {
 
     val imageModelResponse =
-        imageRepo.getImages()
+        imageRepo.getImages(true)
             .asLiveData(viewModelScope.coroutineContext)
 
 }

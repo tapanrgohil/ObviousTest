@@ -21,10 +21,11 @@ class ImageDataSourceImpl @Inject constructor(
     private val gson: Gson,
     private val context: Application
 ) : ImageDataSource {
-    override fun getImages(): Flow<Resource<List<ImageNetworkModel>>> {
+    override fun getImages(fromCache: Boolean): Flow<Resource<List<ImageNetworkModel>>> {
         return getFlow(
             remote = {
-                delay(1500) // to emulate network delay
+                if (!fromCache)
+                    delay(1500) // to emulate network delay
                 val dataJson = context.resources.openRawResource(R.raw.data)
                     .bufferedReader()
                     .use {

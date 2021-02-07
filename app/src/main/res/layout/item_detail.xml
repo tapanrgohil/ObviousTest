@@ -19,12 +19,14 @@
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/tvDate"
         app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -32,7 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@id/tvDate" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -40,9 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/tvDescription" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
